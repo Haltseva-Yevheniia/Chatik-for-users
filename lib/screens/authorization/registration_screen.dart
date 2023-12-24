@@ -8,3 +8,12 @@ class RegistrationScreen extends StatelessWidget {
     return const Placeholder();
   }
 }
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Registration screen'),
+    ),
+  );
+}
