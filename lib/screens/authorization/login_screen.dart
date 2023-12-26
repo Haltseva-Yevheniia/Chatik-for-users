@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import '../../widgets/users_elevated_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.blueGrey,
         centerTitle: true,
         title: const Text('Login Page'),
+        titleTextStyle: const TextStyle(fontFamily: 'Monserrat'),
       ),
     );
   }
