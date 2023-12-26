@@ -1,5 +1,6 @@
 import 'package:chatik_for_users/widgets/users_textfield.dart';
 import 'package:flutter/material.dart';
+// import '../../widgets/users_elevated_button.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -24,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Login Page'),
+        titleTextStyle: const TextStyle(fontFamily: 'Monserrat'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
