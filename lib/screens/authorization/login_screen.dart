@@ -1,27 +1,26 @@
+import 'package:chatik_for_users/widgets/users_elevated_button.dart';
 import 'package:chatik_for_users/widgets/users_textfield.dart';
 import 'package:flutter/material.dart';
 // import '../../widgets/users_elevated_button.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
-
-   const LoginScreen({super.key});
-
-   signIn(){}
+  signIn() {}
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
-   TextEditingController emailController = TextEditingController();
-   TextEditingController passwordController = TextEditingController();
-
+  signIn() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF545E76),
+      backgroundColor: const Color(0xFFDEEAE7),
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Login Page'),
@@ -35,13 +34,16 @@ class _LoginScreenState extends State<LoginScreen> {
             controller: emailController,
             label: 'E-mail',
             hintText: 'Enter your email',
-                      ),
+          ),
           UsersTextField(
             controller: passwordController,
             label: 'Password',
             hintText: 'Enter your password',
           ),
-
+          UsersElevatedButton(
+            title: 'Sign In'.toUpperCase(),
+            onPressed: () => signIn(),
+          ),
         ],
       ),
     );
