@@ -19,17 +19,19 @@ class UsersTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      obscureText: obscured,
+       obscureText: obscured,
       decoration: InputDecoration(
         prefixIcon: icon ?? const SizedBox.shrink(),
         label: Text(
           label,
-          style: const TextStyle(
-            fontSize: 10,
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+            fontSize: 15,
+            fontWeight: FontWeight.w800,
           ),
         ),
         hintText: hintText,
-        hintStyle: const TextStyle(),
+        hintStyle: const TextStyle(fontFamily: 'Montserrat'),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
