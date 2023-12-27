@@ -1,5 +1,6 @@
 import 'package:chatik_for_users/firebase_options.dart';
-import 'package:chatik_for_users/screens/authorization/login_screen.dart';
+import 'package:chatik_for_users/screens/authorization/first_screen.dart';
+//import 'package:chatik_for_users/screens/authorization/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -18,9 +19,11 @@ class ChatikApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      theme: ThemeData.dark(),
+      home: FirstScreen(),
+      //theme: ThemeData.dark(),
     );
   }
 }
