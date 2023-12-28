@@ -77,7 +77,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             UsersElevatedButton(
                 title: 'Registration'.toUpperCase(), onPressed: registrUp),
+            SizedBox(height: 10,),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text('If you are registrated, please'),
                 TextButton(
