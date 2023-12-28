@@ -24,7 +24,7 @@ class UsersTextField extends StatelessWidget {
         prefixIcon: icon ?? const SizedBox.shrink(),
         label: Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'Montserrat',
             fontSize: 15,
             fontWeight: FontWeight.w800,
