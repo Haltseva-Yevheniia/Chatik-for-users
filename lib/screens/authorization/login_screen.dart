@@ -8,22 +8,22 @@ import 'package:lottie/lottie.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
-  signIn() {}
+  //signIn() {}
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   void signIn() async {
     try {
-      await _authService.signInWithEmail(email: emailController.text, password: passwordController.text);
-      catch (error){
-    }
+      await _authService.signInWithEmail(
+          email: emailController.text, password: passwordController.text);
+    } catch (error) {}
   }
 
   @override
@@ -42,8 +42,7 @@ final AuthService _authService = AuthService();
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Lottie.asset('assets/animation/snowman.json',
-            height: 250,
-            width: 180),
+                height: 250, width: 180),
             Text(
               'Log in'.toUpperCase(),
               style: const TextStyle(
@@ -66,7 +65,9 @@ final AuthService _authService = AuthService();
               label: 'Password',
               hintText: 'Enter your password',
             ),
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
             UsersElevatedButton(
               title: 'Sign In'.toUpperCase(),
               onPressed: () => signIn(),
