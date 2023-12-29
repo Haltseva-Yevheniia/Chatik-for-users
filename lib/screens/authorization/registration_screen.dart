@@ -29,6 +29,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +78,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             UsersElevatedButton(
                 title: 'Registration'.toUpperCase(), onPressed: registrUp),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
