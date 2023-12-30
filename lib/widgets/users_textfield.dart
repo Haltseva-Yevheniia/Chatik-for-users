@@ -19,6 +19,7 @@ class UsersTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
        obscureText: obscured,
       decoration: InputDecoration(
         prefixIcon: icon ?? const SizedBox.shrink(),
