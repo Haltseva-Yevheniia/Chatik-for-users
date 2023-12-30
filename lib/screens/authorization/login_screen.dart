@@ -1,3 +1,4 @@
+import 'package:chatik_for_users/screens/authorization/registration_screen.dart';
 import 'package:chatik_for_users/services/authorization/auth_service.dart';
 import 'package:chatik_for_users/widgets/users_elevated_button.dart';
 import 'package:chatik_for_users/widgets/users_textfield.dart';
@@ -19,11 +20,32 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  void signIn() async {
+  void signIn(context) async {
     try {
       await _authService.signInWithEmail(
           email: emailController.text, password: passwordController.text);
-    } catch (error) {}
+    } catch (error) {
+      showError(error.toString(), context);
+    }
+  }
+
+  void showError(String error, context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          error,
+          style: const TextStyle(
+            color: Colors.white,
+            fontFamily: 'Montserrat',
+          ),
+        ),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        backgroundColor: Colors.purple,
+      ),
+    );
   }
 
   @override
@@ -33,44 +55,80 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Login Page'),
-        titleTextStyle: const TextStyle(fontFamily: 'Montserrat'),
+        titleTextStyle: const TextStyle(
+          fontFamily: 'Montserrat',
+          fontSize: 20,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: ListView(
           children: [
-            Lottie.asset('assets/animation/snowman.json',
-                height: 250, width: 180),
-            Text(
-              'Log in'.toUpperCase(),
-              style: const TextStyle(
-                fontSize: 30,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w800,
-                color: Colors.purple,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 30),
-            UsersTextField(
-              controller: emailController,
-              label: 'E-mail',
-              hintText: 'Enter your email',
-            ),
-            const SizedBox(height: 15),
-            UsersTextField(
-              controller: passwordController,
-              label: 'Password',
-              hintText: 'Enter your password',
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            UsersElevatedButton(
-              title: 'Sign In'.toUpperCase(),
-              onPressed: () => signIn(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Lottie.asset('assets/animation/snowman.json',
+                    height: 200, width: 150),
+                Text(
+                  'Log in'.toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w800,
+                    color: Colors.purple,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 30),
+                UsersTextField(
+                  controller: emailController,
+                  label: 'E-mail',
+                  hintText: 'Enter your email',
+                ),
+                const SizedBox(height: 15),
+                UsersTextField(
+                  controller: passwordController,
+                  label: 'Password',
+                  hintText: 'Enter your password',
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                UsersElevatedButton(
+                  title: 'Sign In'.toUpperCase(),
+                  onPressed: () => signIn(context),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      " Don't have an account?",
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegistrationScreen(
+                              switchedMethod: () {},
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Register now',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w500),
+                      ),
+                    )
+                  ],
+                )
+              ],
             ),
           ],
         ),
