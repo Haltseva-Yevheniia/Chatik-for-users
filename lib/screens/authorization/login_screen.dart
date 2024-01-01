@@ -7,8 +7,10 @@ import 'package:lottie/lottie.dart';
 // import '../../widgets/users_elevated_button.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
 
+
+  final Function()? switchedMethod;
+  const LoginScreen({super.key, required this.switchedMethod});
   //signIn() {}
 
   @override
@@ -109,16 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RegistrationScreen(
-                              switchedMethod: () {},
-                            ),
-                          ),
-                        );
-                      },
+                      onPressed: widget.switchedMethod,
                       child: const Text(
                         'Register now',
                         style: TextStyle(
