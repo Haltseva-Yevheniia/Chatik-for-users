@@ -1,3 +1,4 @@
+import 'package:chatik_for_users/services/authorization/auth_service.dart';
 import 'package:flutter/material.dart';
 
 // constants to use through our project
@@ -10,4 +11,6 @@ Color headTextColor = const Color(0xFFC282C4);
 TextStyle headTextStyle = TextStyle(fontSize: 30, color: headTextColor, fontFamily: 'Montserrat', );
 
 // objects
+
+AuthService authService = AuthService();
 
