@@ -11,7 +11,7 @@ class LogInOrRegistrationScreen extends StatefulWidget {
 }
 
 class _LogInOrRegistrationScreenState extends State<LogInOrRegistrationScreen> {
-  bool isLogedIn = false;
+  bool isLogedIn = true;
 
    void switchScreens() {
     setState(() {
@@ -21,7 +21,7 @@ class _LogInOrRegistrationScreenState extends State<LogInOrRegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return isLogedIn ? const LoginScreen() : RegistrationScreen(switchedMethod: switchScreens);
+    return isLogedIn ? LoginScreen(switchedMethod: switchScreens) : RegistrationScreen(switchedMethod: switchScreens);
     //TODO Evgeniya Animation transfer between the screens
   }
 }
