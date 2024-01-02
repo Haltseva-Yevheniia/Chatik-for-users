@@ -1,4 +1,3 @@
-import 'package:chatik_for_users/constants.dart';
 import 'package:chatik_for_users/screens/authorization/registration_screen.dart';
 import 'package:chatik_for_users/services/authorization/auth_service.dart';
 import 'package:chatik_for_users/widgets/users_elevated_button.dart';
@@ -107,7 +106,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     TextButton(
-
                       onPressed: widget.switchedMethod,
                       child: const Text(
                         'Register now',
