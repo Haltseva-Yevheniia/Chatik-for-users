@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -28,6 +29,8 @@ class AuthService {
   Future<UserCredential> registrUp({
     required String email,
     required String password,
+    String? name,
+    Image? avatar,
   }) async {
     UserCredential userCredential =
         await _firebaseAuth.createUserWithEmailAndPassword(
@@ -37,7 +40,9 @@ class AuthService {
     _firebaseFirestore.collection('users').doc(userCredential.user!.uid).set(
         {
           'uid': userCredential.user!.uid,
-          'email': userCredential.user!.email,
+          'email': email,
+          'name': name,
+          'avatar': avatar,
 
         });
     return userCredential;

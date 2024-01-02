@@ -1,4 +1,6 @@
 import 'package:chatik_for_users/services/authorization/auth_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // constants to use through our project
@@ -13,4 +15,9 @@ TextStyle headTextStyle = TextStyle(fontSize: 30, color: headTextColor, fontFami
 // objects
 
 AuthService authService = AuthService();
+FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+
+
 

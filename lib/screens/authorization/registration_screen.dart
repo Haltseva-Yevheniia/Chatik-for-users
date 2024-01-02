@@ -18,12 +18,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  Image? avatar;
   AuthService authService = AuthService();
 
   Future<void> registrUp() async {
     try {
       await authService.registrUp(
-          email: emailController.text, password: passwordController.text);
+          email: emailController.text, password: passwordController.text, name: nameController.text, avatar: avatar);
     } catch (error) {
       throw Exception(error);
     }
@@ -52,6 +53,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 50,
             ),
             UsersTextField(
+              controller: nameController,
+              label: 'Name',
+              hintText: 'Enter your name',
+            ),
+            SizedBox(height: 20,),
+            UsersTextField(
               controller: emailController,
               label: 'Email',
               hintText: 'Enter email',
@@ -73,6 +80,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               label: 'Confirm password',
               hintText: 'Confirm your password',
             ),
+
             const SizedBox(
               height: 30,
             ),
