@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 //Colors
 
-Color headTextColor = const Color(0xFFC282C4);
+Color headTextColor = const Color(0xFFB743BB);
 
 //styles
-TextStyle headTextStyle = TextStyle(fontSize: 30, color: headTextColor, fontFamily: 'Montserrat', );
+TextStyle headTextStyle = TextStyle(fontSize: 30, color: headTextColor, fontFamily: 'Montserrat', fontWeight: FontWeight.w800);
 
 // objects
 

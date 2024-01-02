@@ -1,3 +1,4 @@
+import 'package:chatik_for_users/constants.dart';
 import 'package:chatik_for_users/screens/authorization/registration_screen.dart';
 import 'package:chatik_for_users/services/authorization/auth_service.dart';
 import 'package:chatik_for_users/widgets/users_elevated_button.dart';
@@ -74,12 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 200, width: 150),
                 Text(
                   'Log in'.toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w800,
-                    color: Colors.purple,
-                  ),
+                  style: headTextStyle,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 30),
@@ -111,6 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     TextButton(
+
                       onPressed: widget.switchedMethod,
                       child: const Text(
                         'Register now',

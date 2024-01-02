@@ -22,6 +22,6 @@ class _LogInOrRegistrationScreenState extends State<LogInOrRegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return isLogedIn ? LoginScreen(switchedMethod: switchScreens) : RegistrationScreen(switchedMethod: switchScreens);
-    //TODO Evgeniya Animation transfer between the screens
+    //TODO Inna Animataion switch to registration screen
   }
 }
