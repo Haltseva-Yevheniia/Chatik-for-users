@@ -63,7 +63,7 @@ class _ChatRoomState extends State<ChatRoom> {
                           margin: const EdgeInsets.all(4),
                           padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
-                            color: isCurrentUser ? Colors.green : Colors.yellowAccent,
+                            color: isCurrentUser ? Colors.green[900] : Colors.purpleAccent,
                             borderRadius: BorderRadius.only(
                               bottomLeft: const Radius.circular(10),
                               bottomRight: const Radius.circular(10),
