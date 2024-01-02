@@ -3,6 +3,7 @@ import 'package:chatik_for_users/services/authorization/auth_service.dart';
 import 'package:chatik_for_users/widgets/users_elevated_button.dart';
 import 'package:chatik_for_users/widgets/users_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class RegistrationScreen extends StatefulWidget {
   final Function()? switchedMethod;
@@ -40,17 +41,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         titleTextStyle: const TextStyle(fontSize: 20, fontFamily: 'Montserrat'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(5.0),
         child: ListView(
           children: [
-            Center(
-              child: Text(
-                'Fill in the form',
-                style: headTextStyle,
-              ),
+            Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+            Lottie.asset('assets/animation/snowman.json',
+            height: 150, width: 150),
+                Center(
+                  child: Text(
+                    'Fill in the form',
+                    style: headTextStyle,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             UsersTextField(
               controller: nameController,
@@ -64,7 +73,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               hintText: 'Enter email',
             ),
             const SizedBox(
-              height: 30,
+              height: 15,
             ),
             UsersTextField(
               controller: passwordController,
@@ -73,7 +82,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               obscured: true,
             ),
             const SizedBox(
-              height: 30,
+              height: 15,
             ),
             UsersTextField(
               controller: passwordConfirmController,
