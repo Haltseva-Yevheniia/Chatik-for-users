@@ -18,13 +18,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-  Image? avatar;
+  //Image? avatar;
   AuthService authService = AuthService();
 
   Future<void> registrUp() async {
     try {
       await authService.registrUp(
-          email: emailController.text, password: passwordController.text, name: nameController.text, avatar: avatar);
+          email: emailController.text, password: passwordController.text, name: nameController.text,);
     } catch (error) {
       throw Exception(error);
     }

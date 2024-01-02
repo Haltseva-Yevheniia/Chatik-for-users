@@ -18,6 +18,10 @@ AuthService authService = AuthService();
 FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
+// users details
+
+final currentUserEmail = firebaseAuth.currentUser!.email;
+final currentUserId = firebaseAuth.currentUser!.uid;
 
 
 
