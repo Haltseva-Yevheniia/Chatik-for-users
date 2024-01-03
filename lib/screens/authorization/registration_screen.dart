@@ -81,6 +81,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               controller: passwordConfirmController,
               label: 'Confirm password',
               hintText: 'Confirm your password',
+              obscured: true,
             ),
             const SizedBox(
               height: 30,
