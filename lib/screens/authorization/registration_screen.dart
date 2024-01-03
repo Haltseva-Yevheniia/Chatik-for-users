@@ -68,7 +68,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               label: 'Name',
               hintText: 'Enter your name',
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             UsersTextField(

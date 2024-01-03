@@ -20,8 +20,9 @@ FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
 // users details
 
-final currentUserEmail = firebaseAuth.currentUser!.email;
-final currentUserId = firebaseAuth.currentUser!.uid;
+String currentUserEmail = firebaseAuth.currentUser!.email!;
+String currentUserId = firebaseAuth.currentUser!.uid;
+//var currentUserName= firebaseFirestore.collection('users').doc(currentUserId).snapshots()['name'];
 
 
 
