@@ -13,7 +13,7 @@ class LogInOrRegistrationScreen extends StatefulWidget {
 class _LogInOrRegistrationScreenState extends State<LogInOrRegistrationScreen> {
   bool isLogedIn = true;
 
-   void switchScreens() {
+  void switchScreens() {
     setState(() {
       isLogedIn = !isLogedIn;
     });
@@ -21,7 +21,18 @@ class _LogInOrRegistrationScreenState extends State<LogInOrRegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return isLogedIn ? LoginScreen(switchedMethod: switchScreens) : RegistrationScreen(switchedMethod: switchScreens);
-    //TODO Inna Animataion switch to registration screen
+    //return isLogedIn ? LoginScreen(switchedMethod: switchScreens) : RegistrationScreen(switchedMethod: switchScreens);
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 500),
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+      child: isLogedIn
+          ? LoginScreen(switchedMethod: switchScreens)
+          : RegistrationScreen(switchedMethod: switchScreens),
+    );
   }
 }
