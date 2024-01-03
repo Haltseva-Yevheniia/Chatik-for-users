@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:chatik_for_users/constants.dart';
 import 'package:chatik_for_users/screens/chat/chat_room.dart';
 import 'package:chatik_for_users/services/profile/profile_service.dart';
+import 'package:chatik_for_users/widgets/users_textfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ListChats extends StatefulWidget {
   const ListChats({super.key});
@@ -13,6 +17,8 @@ class ListChats extends StatefulWidget {
 }
 
 class _ListChatsState extends State<ListChats> {
+  File? userAvatar;
+
   @override
   Widget build(BuildContext context) {
     //FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -21,12 +27,49 @@ class _ListChatsState extends State<ListChats> {
     // var currentUser= _firebaseFirestore.collection('users').doc(currentId);
     // String currentUserName = currentUser['name'];
 
-
-    Future<void> addName(String name) async{
-
+    Future<void> addName(String name) async {
       await profileService.addName(name: name);
+    }
 
+    void showDialogToEnterName() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            TextEditingController nameController = TextEditingController();
+            return AlertDialog(
+              title: const Text('Add or edit name'),
+              content: UsersTextField(
+                label: 'Name',
+                hintText: 'Add your name',
+                controller: nameController,
+                //onChanged: ,
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    addName(nameController.text);
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Save'),
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Cancel'),
+                ),
+              ],
+            );
+          });
+    }
 
+    Future<void> addAvatarFromGallery() async {
+      final selectedAvatar =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (selectedAvatar == null) return;
+      setState(() {
+        userAvatar = File(selectedAvatar.path);
+      });
     }
 
     return Scaffold(
@@ -40,15 +83,22 @@ class _ListChatsState extends State<ListChats> {
                 textAlign: TextAlign.center,
                 style: headTextStyle,
               ),
-              const CircleAvatar(),
-              TextButton(onPressed: () {}, child: const Text('Change photo'),),
+              CircleAvatar(
+                child: userAvatar != null ? Image.file(userAvatar!) : null,
+              ),
+              TextButton(
+                onPressed: () {
+                  addAvatarFromGallery();
+                },
+                child: const Text('Change photo'),
+              ),
               Row(
                 children: [
                   const Text('Name: '),
                   // TODO Name of User from FirebaseFirestore or if null "No name"
                   TextButton(
                     onPressed: () {
-                      //addName(name);
+                      showDialogToEnterName();
                     },
                     child: const Text('Add/edite name'),
                   ),
@@ -63,7 +113,9 @@ class _ListChatsState extends State<ListChats> {
                   ),
                 ],
               ),
-              const SizedBox(height: 50,),
+              const SizedBox(
+                height: 50,
+              ),
               IconButton(
                 onPressed: () => authService.logOut(),
                 icon: const Icon(Icons.logout),
@@ -74,6 +126,7 @@ class _ListChatsState extends State<ListChats> {
       ),
       appBar: AppBar(
         title: const Text('Chatiks'),
+        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () => authService.logOut(),
