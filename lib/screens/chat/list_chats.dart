@@ -1,6 +1,7 @@
 import 'package:chatik_for_users/constants.dart';
 import 'package:chatik_for_users/screens/chat/chat_room.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ListChats extends StatelessWidget {
@@ -8,35 +9,38 @@ class ListChats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+    // final currentId = FirebaseAuth.instance.currentUser!.uid;
+    // var currentUser= _firebaseFirestore.collection('users').doc(currentId);
+    // String currentUserName = currentUser['name'];
 
-    void addName() {
-    }
+    void addName() {}
 
     return Scaffold(
       drawer: Drawer(
         child: ListView(
           children: [
-            Text('My profile'.toUpperCase(), textAlign: TextAlign.center, style: headTextStyle,),
-            CircleAvatar(),
-      TextButton(
-              onPressed: addName,
-              child: Text('Add/edite name'),
+            Text(
+              'My profile'.toUpperCase(),
+              textAlign: TextAlign.center,
+              style: headTextStyle,
             ),
-
-            // Row(
-            //   children: [
-            //     Text('Name: ${firebaseFirestore.collection('users').doc('name')}'),
-            //     TextButton(
-            //       onPressed: (){},
-            //       child: Text('Add/edite name'),
-            //     ),
-            //   ],
-            // ),
+            CircleAvatar(),
+            TextButton(onPressed: () {}, child: Text('Change photo')),
             Row(
               children: [
-                Text('Email: ${firebaseFirestore.collection('users').doc('email')}'),
+                Text('Name: '),
                 TextButton(
-                  onPressed: (){},
+                  onPressed: () {},
+                  child: Text('Add/edite name'),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text('Email: $currentUserEmail'),
+                TextButton(
+                  onPressed: () {},
                   child: Text('Add/edite email'),
                 ),
               ],
@@ -116,7 +120,6 @@ class ListChats extends StatelessWidget {
           return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
-
                 final user = snapshot.data!.docs[index];
 
                 return ListTile(
@@ -131,7 +134,9 @@ class ListChats extends StatelessWidget {
                   },
                   leading: const CircleAvatar(),
                   title: Text(user['email']),
-                  subtitle: Text(user['name']),
+                  subtitle: (user['name'] != null)
+                      ? Text(user['name'])
+                      : Text('No name'),
                   trailing: const Icon(Icons.arrow_forward_ios_sharp),
                 );
               });
@@ -139,6 +144,4 @@ class ListChats extends StatelessWidget {
       },
     );
   }
-
-
 }
