@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
       //backgroundColor: const Color(0xFFDEEAE7),
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Login Page'),
+        title: const Text('Login Page'), 
         titleTextStyle: const TextStyle(
           fontFamily: 'Montserrat',
           fontSize: 20,
