@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 class ChatRoom extends StatefulWidget {
   final String receivedUserId;
   final String receivedUserEmail;
-  const ChatRoom({super.key, required this.receivedUserId, required this.receivedUserEmail});
+  final String? recievedUserName;
+  const ChatRoom({super.key, this.recievedUserName, required this.receivedUserId, required this.receivedUserEmail});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -27,7 +28,7 @@ class _ChatRoomState extends State<ChatRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
      appBar: AppBar(
-       title: Text(widget.receivedUserEmail),
+       title: (widget.recievedUserName==null)? Text(widget.receivedUserEmail) : Text(widget.recievedUserName!),
      ),
       body: Column(
         children: [
@@ -73,6 +74,8 @@ class _ChatRoomState extends State<ChatRoom> {
                           ),
                           child: Text(snapshot.data!.docs[index]['message']),
                         ),
+                        //TODO add time in String format
+                        //Text(snapshot.data!.docs[index]['timestamp'].toString()),
                       ],
                     ),
                   );

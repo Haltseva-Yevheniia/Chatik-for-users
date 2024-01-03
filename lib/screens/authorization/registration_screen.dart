@@ -19,17 +19,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  //Image? avatar;
   AuthService authService = AuthService();
 
   Future<void> registrUp() async {
     try {
       await authService.registrUp(
-          email: emailController.text, password: passwordController.text);
+        email: emailController.text,
+        password: passwordController.text,
+        name: nameController.text,
+      );
     } catch (error) {
       throw Exception(error);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +47,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         child: ListView(
           children: [
             Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-            Lottie.asset('assets/animation/snowman.json',
-            height: 150, width: 150),
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Lottie.asset('assets/animation/snowman.json',
+                    height: 150, width: 150),
                 Center(
                   child: Text(
                     'Fill in the form',
@@ -59,6 +62,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             const SizedBox(
               height: 30,
+            ),
+            UsersTextField(
+              controller: nameController,
+              label: 'Name',
+              hintText: 'Enter your name',
+            ),
+            const SizedBox(
+              height: 20,
             ),
             UsersTextField(
               controller: emailController,
@@ -88,7 +99,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             UsersElevatedButton(
                 title: 'Registration'.toUpperCase(), onPressed: registrUp),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
