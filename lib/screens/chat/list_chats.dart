@@ -5,6 +5,7 @@ import 'package:chatik_for_users/screens/chat/chat_room.dart';
 import 'package:chatik_for_users/services/profile/profile_service.dart';
 import 'package:chatik_for_users/widgets/users_textfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,59 +19,83 @@ class ListChats extends StatefulWidget {
 
 class _ListChatsState extends State<ListChats> {
   File? userAvatar;
+  ProfileService profileService = ProfileService();
+
+  Future<String> getcurrentName() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    final currentId = FirebaseAuth.instance.currentUser!.uid;
+    DocumentSnapshot currentUser =
+        await firebaseFirestore.collection('users').doc(currentId).get();
+    String currentUserName = currentUser['name'];
+    return currentUserName;
+  }
+
+  String? currentName;
+
+  Future<void> addName(String name) async {
+
+
+      await profileService.addName(name: name);
+
+  }
+
+  void showDialogToEnterName() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          TextEditingController nameController = TextEditingController();
+          return AlertDialog(
+            title: const Text('Add or edit name'),
+            content: UsersTextField(
+              label: 'Name',
+              hintText: 'Add your name',
+              controller: nameController,
+              //onChanged: ,
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    addName(nameController.text);
+                  });
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Save'),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cancel'),
+              ),
+            ],
+          );
+        });
+  }
+
+  Future<void> addAvatarFromGallery() async {
+    final selectedAvatar =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (selectedAvatar == null) return;
+    setState(() {
+      userAvatar = File(selectedAvatar.path);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getcurrentName().then((String value) {
+      setState(() {
+        currentName = value;
+
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    //FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-    ProfileService profileService = ProfileService();
-    // final currentId = FirebaseAuth.instance.currentUser!.uid;
-    // var currentUser= _firebaseFirestore.collection('users').doc(currentId);
-    // String currentUserName = currentUser['name'];
 
-    Future<void> addName(String name) async {
-      await profileService.addName(name: name);
-    }
-
-    void showDialogToEnterName() {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            TextEditingController nameController = TextEditingController();
-            return AlertDialog(
-              title: const Text('Add or edit name'),
-              content: UsersTextField(
-                label: 'Name',
-                hintText: 'Add your name',
-                controller: nameController,
-                //onChanged: ,
-              ),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    addName(nameController.text);
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Save'),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Cancel'),
-                ),
-              ],
-            );
-          });
-    }
-
-    Future<void> addAvatarFromGallery() async {
-      final selectedAvatar =
-          await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (selectedAvatar == null) return;
-      setState(() {
-        userAvatar = File(selectedAvatar.path);
-      });
-    }
 
     return Scaffold(
       drawer: Drawer(
@@ -94,7 +119,7 @@ class _ListChatsState extends State<ListChats> {
               ),
               Row(
                 children: [
-                  const Text('Name: '),
+                  currentName !=null ? Text('Name: $currentName') : const Text('Name: no name'),
                   // TODO Name of User from FirebaseFirestore or if null "No name"
                   TextButton(
                     onPressed: () {
