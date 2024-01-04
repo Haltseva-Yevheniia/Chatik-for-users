@@ -36,6 +36,10 @@ class _ListChatsState extends State<ListChats> {
     await profileService.addName(name: name);
   }
 
+  Future<void> addAvatarToBase (File avatar) async{
+    await profileService.addAvatar(avatar: avatar);
+  }
+
   void showDialogToEnterName() {
     showDialog(
         context: context,
@@ -109,7 +113,12 @@ class _ListChatsState extends State<ListChats> {
               ),
               TextButton(
                 onPressed: () {
-                  addAvatarFromGallery();
+                  setState(() {
+                    addAvatarFromGallery();
+                    if (userAvatar!=null)
+                    {addAvatarToBase(userAvatar!);}
+                  });
+
                 },
                 child: const Text('Change photo'),
               ),
@@ -138,6 +147,7 @@ class _ListChatsState extends State<ListChats> {
                   TextButton(
                     onPressed: () {
                       showDialogToEnterName();
+
                     },
                     child: const Text('Add/edite name'),
                   ),
