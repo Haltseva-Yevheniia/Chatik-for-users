@@ -19,6 +19,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+
   //Image? avatar;
   AuthService authService = AuthService();
 
@@ -33,7 +34,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       throw Exception(error);
     }
   }
+  void showAlertPassword(BuildContext context) async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Try reconfirm the password'),
 
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'))
+            ],
+          );
+        });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +116,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 30,
             ),
             UsersElevatedButton(
-                title: 'Registration'.toUpperCase(), onPressed: registrUp),
+                title: 'Registration'.toUpperCase(), onPressed: (){
+                  if (passwordController.text==passwordConfirmController.text) {
+                  registrUp();} else {
+                    showAlertPassword(context);
+                  }
+            }),
             const SizedBox(
               height: 10,
             ),
