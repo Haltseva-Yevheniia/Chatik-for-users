@@ -120,7 +120,7 @@ class _ListChatsState extends State<ListChats> {
               Row(
                 children: [
                   currentName !=null ? Text('Name: $currentName') : const Text('Name: no name'),
-                  // TODO Name of User from FirebaseFirestore or if null "No name"
+
                   TextButton(
                     onPressed: () {
                       showDialogToEnterName();
