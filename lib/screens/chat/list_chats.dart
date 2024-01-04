@@ -21,22 +21,19 @@ class _ListChatsState extends State<ListChats> {
   File? userAvatar;
   ProfileService profileService = ProfileService();
 
-  Future<String> getcurrentName() async {
+  Future<String?> getCurrentName() async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     final currentId = FirebaseAuth.instance.currentUser!.uid;
     DocumentSnapshot currentUser =
-        await firebaseFirestore.collection('users').doc(currentId).get();
+    await firebaseFirestore.collection('users').doc(currentId).get();
     String currentUserName = currentUser['name'];
     return currentUserName;
   }
 
-  String? currentName;
+  late Future<String?> currentName;
 
   Future<void> addName(String name) async {
-
-
-      await profileService.addName(name: name);
-
+    await profileService.addName(name: name);
   }
 
   void showDialogToEnterName() {
@@ -75,7 +72,7 @@ class _ListChatsState extends State<ListChats> {
 
   Future<void> addAvatarFromGallery() async {
     final selectedAvatar =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    await ImagePicker().pickImage(source: ImageSource.gallery);
     if (selectedAvatar == null) return;
     setState(() {
       userAvatar = File(selectedAvatar.path);
@@ -85,18 +82,17 @@ class _ListChatsState extends State<ListChats> {
   @override
   void initState() {
     super.initState();
-    getcurrentName().then((String value) {
-      setState(() {
-        currentName = value;
-
-      });
-    });
+    currentName = getCurrentName();
+    // getCurrentName().then((String value) {
+    //   setState(() {
+    //     currentName = value;
+    //
+    //   });
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       drawer: Drawer(
         child: Padding(
@@ -119,8 +115,26 @@ class _ListChatsState extends State<ListChats> {
               ),
               Row(
                 children: [
-                  currentName !=null ? Text('Name: $currentName') : const Text('Name: no name'),
-                  // TODO Name of User from FirebaseFirestore or if null "No name"
+                  FutureBuilder(
+                      future: FirebaseFirestore.instance.collection('users').doc(currentUserId).get(),
+                      builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return const Center(
+                        child: Text('Error'),
+                      );
+                    } else if (snapshot.data!['name'] == null) {
+                      return const Text('Name: no name');
+                    } else {
+                      return Text('Name: ${snapshot.data!['name']}');
+                    }
+                  }),
+                  // currentName != null ? Text('Name: $currentName') : const Text(
+                  //     'Name: no name'),
+
                   TextButton(
                     onPressed: () {
                       showDialogToEnterName();
@@ -129,15 +143,7 @@ class _ListChatsState extends State<ListChats> {
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  Text('Email: $currentUserEmail'),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('Add/edite email'),
-                  ),
-                ],
-              ),
+              Text('Email: $currentUserEmail'),
               const SizedBox(
                 height: 50,
               ),
@@ -185,11 +191,12 @@ class _ListChatsState extends State<ListChats> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatRoom(
-                          receivedUserEmail: user['email'],
-                          receivedUserId: user['uid'],
-                          recievedUserName: user['name'],
-                        ),
+                        builder: (context) =>
+                            ChatRoom(
+                              receivedUserEmail: user['email'],
+                              receivedUserId: user['uid'],
+                              recievedUserName: user['name'],
+                            ),
                       ),
                     );
                   },
